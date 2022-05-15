@@ -2,6 +2,8 @@ package ru.netology;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagerTest {
@@ -72,7 +74,8 @@ class ManagerTest {
         manager.add(aaaCcc);
         manager.add(cccBbb);
 
-        Ticket[] actual = manager.findAll1("AAA", "BBB");
+        Comparator<Ticket> ticketByPriceAscComparator = new TicketByPriceAscComparator();
+        Ticket[] actual = manager.findAll1("AAA", "BBB", ticketByPriceAscComparator);
         Ticket[] expected = {aAaBbb, aaaBbb};
         assertArrayEquals(expected, actual);
     }
@@ -85,8 +88,10 @@ class ManagerTest {
         manager.add(aaaCcc);
         manager.add(cccBbb);
 
+        Comparator<Ticket> ticketByPriceAscComparator = new TicketByPriceAscComparator();
+
         assertThrows(NotFoundException.class, () -> {
-            manager.findAll1("DDD", "FFF");
+            manager.findAll1("DDD", "FFF", ticketByPriceAscComparator);
         });
     }
 

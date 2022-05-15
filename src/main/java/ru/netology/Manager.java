@@ -23,7 +23,7 @@ public class Manager implements Cloneable {
     }
 
 
-    public Ticket[] findAll1(String from, String to) {
+    public Ticket[] findAll1(String from, String to, Comparator<Ticket> comparator) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : repository.findAll()) {
             if (matchesFromTo(ticket, from, to)) {
@@ -37,7 +37,7 @@ public class Manager implements Cloneable {
         if (result.length == 0) {
             throw new NotFoundException("not ticket");
         }
-        Arrays.sort(result);
+        Arrays.sort(result, comparator);
         return result;
     }
 
